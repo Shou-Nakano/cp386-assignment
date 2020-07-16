@@ -37,27 +37,24 @@ int main(int argc, char **argv) {
 	// Prompt the user for input here. We should assume that using the run command ends the program.
 	while (done == 0){
 		printf("Input your command: ");
-		fgets(command, 100, stdin); // We must use fgets.
-		// Get the first token in the command.
-		prelude = strtok(command, " ");
+		fgets(command, 100, stdin); // We must use fgets to get the user's input, since their input will have spaces.
 		// Run a function based on the user's input.
-		if (strncmp(prelude, "RQ", 2) == 0){
+		if (strncmp(command, "RQ", 2) == 0){
 			RQ(command);
 		}
-		else if (strncmp(prelude, "RL", 2) == 0){
+		else if (strncmp(command, "RL", 2) == 0){
 			RL(command);
 		}
-		else if (strncmp(prelude, "*", 1) == 0){
+		else if (strncmp(command, "*", 1) == 0){
 			Asterisk();
 		}
-		else if (strncmp(prelude, "Run", 3) == 0){
+		else if (strncmp(command, "Run", 3) == 0){
 			done = 1;
 			Run();
 		}
 		else{
 			printf("Invalid input; please input a valid command.");
 		}
-		printf("%s", prelude);
 		while(prelude != NULL) {
 			prelude = strtok(NULL, " ");
 		}

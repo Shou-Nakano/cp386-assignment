@@ -13,13 +13,21 @@ int main() {
 	}
 
 
-	readFile();
+	readFile(argv[1]);
 	
 }
 
 int readFile(char* fileName) // Reads the input file and sets up the vectors/matrices.
 {
 	// How many lines are in the file?
+	FILE *in = fopen(fileName, "r");
+
+	if(!in)
+	{
+		printf("Child A: Error in opening input file...exiting with error code -1\n");
+		return -1;
+	}
+
 }
 
 void RQ(){
@@ -27,6 +35,8 @@ void RQ(){
 }
 
 void RL(){
+
+	safetyAlgorithm();
 
 }
 

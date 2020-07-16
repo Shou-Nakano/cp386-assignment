@@ -41,16 +41,16 @@ int main(int argc, char **argv) {
 		// Get the first token in the command.
 		prelude = strtok(command, " ");
 		// Run a function based on the user's input.
-		if (strcmp(prelude, "RQ") == 0){
+		if (strncmp(prelude, "RQ", 2) == 0){
 			RQ(command);
 		}
-		else if (strcmp(prelude, "RL") == 0){
+		else if (strncmp(prelude, "RL", 2) == 0){
 			RL(command);
 		}
-		else if (strcmp(prelude, "*") == 0){
+		else if (strncmp(prelude, "*", 1) == 0){
 			Asterisk();
 		}
-		else if (strcmp(prelude, "Run") == 0){
+		else if (strncmp(prelude, "Run", 3) == 0){
 			done = 1;
 			Run();
 		}

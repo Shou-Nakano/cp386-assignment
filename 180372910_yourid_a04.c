@@ -89,18 +89,17 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	for (int i=1; i < (varArgc); i++){
 		available[i] = atoi(*(varArgv+i));
 	}
-	fseek(in, 1, SEEK_SET);
+	fseek(in, 0, SEEK_SET);
 	// Set up max/need (which are the same to start).
-	filePointer = fgetc(in);
 	int i = 0;
 	int j = 0;
 	char *temp;
+	filePointer = fgetc(in);
 	while (filePointer != EOF){
 		if (filePointer != '\n' && filePointer != ','){
-			strcpy(temp, filePointer);
+			temp = &filePointer;
 			max[i][j] = atoi(temp);
 			need[i][j] = atoi(temp);
-			printf("%d \n", max[i][j]);
 			j = j + 1;
 			if (j == resources){
 				j = 0;
@@ -108,6 +107,15 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 			}
 		}
 		filePointer = fgetc(in);
+	}
+	// Set up allocation (every elemene in allocation is 0).
+	i = 0;
+	j = 0;
+	for (i = 0; i < processes; i++){
+		for (j = 0; j < resources; j++){
+			allocation[i][j] = 0;
+			printf("ok \n");
+		}
 	}
 	return 0;
 }

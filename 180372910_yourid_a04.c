@@ -27,6 +27,8 @@ int main(int argc, char *argv[]) {
 	while (done == false){
 		
 	}
+
+	free(available); // Don't forget to free everything at the end of the program.
 	return 0;
 }
 
@@ -37,6 +39,7 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	int lines;
 	int commas;
 	int resources; // Resources should equal (commas+lines)/lines.
+	int *available = null; // 1D array for resources.
 
 	if(!in)
 	{
@@ -59,6 +62,8 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 
 	resources = (commas+lines)/lines; // This works, for sample4_in.txt, it printed 4.
 	// Next, dynamically set up the vectors/matrices.
+	available = (int *)malloc(resources * sizeof(int)); // Create the Available vector.
+	// Finally, fill the contents of those vectors/matrices.
 
 	return 0;
 }

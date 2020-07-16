@@ -23,7 +23,7 @@ char ** varArgv = NULL;
 // The vectors/matrices will be defined here as global variables.
 
 int main(int argc, char **argv) {
-	char *prelude = (char*)malloc(100); // This will contain the first 2 characters of the user's command.
+	char *prelude = (char*)malloc(100); // This will be used to get rid of the tokens in the fgets string.
 	char *command = (char*)malloc(100);
 	if(argc<2)
 	{
@@ -145,7 +145,11 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 }
 
 void RQ(char* command){
-	printf("RQ");
+	char* save = (char*) malloc(100);
+	strcpy(save, command); // Just in case we shouldn't RQ, we can use this same command to perform a RL.
+	save[1] = 'L';
+	printf("%s", save);
+	//char *token = strtok(command, " "); // Get rid of the RQ bit in the command.
 }
 
 void RL(char* command){

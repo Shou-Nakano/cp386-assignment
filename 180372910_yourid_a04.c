@@ -15,31 +15,34 @@ int *available = NULL; // 1D vector for resources, which stores the number of av
 int ** max = NULL; // 2D array (number of processes by number of resources). If Max [i,j] = k, then process Timay request at most k instances of resource type Rj.
 int ** allocation = NULL; // 2D array (number of processes by number of resources). If Allocation[i,j] = k then Ti is currently allocated k instances of Rj.
 int ** need = NULL; // 2D array (number of processes by number of resources). If Need[i,j] = k, then Ti may need k more instances of Rj to complete its task.
+int varArgc;
+char ** varArgv = NULL;
 
 
 // The vectors/matrices will be defined here as global variables.
 
-int main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
 	
 	if(argc<2)
 	{
 		printf("No initial resources provided, exiting with error code -1. \n");
 		return -1;
 	}
-
+	// printf("%d", atoi(argv[1]) * 2); This is a test and this works.
+	varArgc = argc;
+	varArgv = argv;
 	readFile("sample4_in.txt");
 	// Prompt the user for input here. We should assume that using the run command ends the program.
 	/*while (done == 0){
 		
 	}*/
 
-	free(available); // Don't forget to free everything at the end of the program.
+	//free(available); // Don't forget to free everything at the end of the program.
 	return 0;
 }
 
 int readFile(char* fileName) // Reads the input file and sets up the vectors/matrices.
 {
-	printf("readFile started.");
 	FILE *in = fopen(fileName, "r");
 	char filePointer;
 	int lines;
@@ -73,8 +76,19 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	for (int i=0; i<processes; i++){
          max[i] = (int *)malloc(resources * sizeof(int)); // Create the max matrix.
 	}
+	allocation = (int **)malloc(processes * sizeof(int *));
+	for (int i=0; i<processes; i++){
+         allocation[i] = (int *)malloc(resources * sizeof(int)); // Create the allocation matrix.
+	}
+	need = (int **)malloc(processes * sizeof(int *));
+	for (int i=0; i<processes; i++){
+         need[i] = (int *)malloc(resources * sizeof(int)); // Create the need matrix.
+	}
 	// Finally, fill the contents of those vectors/matrices.
-
+	for (int i=1; i < (varArgc); i++){
+		available[i] = atoi(*(varArgv+i));
+		printf("%d \n", available[i]);
+	}
 	return 0;
 }
 

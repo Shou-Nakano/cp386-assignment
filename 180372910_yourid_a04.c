@@ -12,9 +12,9 @@ int safetyAlgorithm();
 
 int done = 0;
 int *available = NULL; // 1D vector for resources, which stores the number of available resources of each type. If available [j] = k, there are k instances of resource type Rj available.
-int ** max = NULL; // 2D array (number of processes by number of resources). If Max [i,j] = k, then process Timay request at most k instances of resource type Rj.
+int ** max = NULL; // 2D array (number of processes by number of resources). If Max [i,j] = k, then process Ti may request at most k instances of resource type Rj.
 int ** allocation = NULL; // 2D array (number of processes by number of resources). If Allocation[i,j] = k then Ti is currently allocated k instances of Rj.
-int ** need = NULL; // 2D array (number of processes by number of resources). If Need[i,j] = k, then Ti may need k more instances of Rj to complete its task.
+int ** need = NULL; // 2D array (number of processes by number of resources). If Need[i,j] = k, then Ti will need k more instances of Rj to complete its task.
 int varArgc;
 char ** varArgv = NULL;
 
@@ -56,7 +56,7 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 		return -1;
 	}
 	// How many lines/commas and by extension, resources are in the file?
-	filePointer = getc(in);
+	filePointer = fgetc(in);
 	while (filePointer != EOF)
     {
         if (filePointer == '\n'){
@@ -66,7 +66,7 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 			commas = commas + 1; // Increment the comma count.
 		}
         //Move to the next character.
-        filePointer = getc(in);
+        filePointer = fgetc(in);
     }
 	processes = lines;
 	resources = (commas+lines)/lines; // This works, for sample4_in.txt, it printed 4.
@@ -85,9 +85,29 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
          need[i] = (int *)malloc(resources * sizeof(int)); // Create the need matrix.
 	}
 	// Finally, fill the contents of those vectors/matrices.
+	// Set up available from argv.
 	for (int i=1; i < (varArgc); i++){
 		available[i] = atoi(*(varArgv+i));
-		printf("%d \n", available[i]);
+	}
+	fseek(in, 1, SEEK_SET);
+	// Set up max/need (which are the same to start).
+	filePointer = fgetc(in);
+	int i = 0;
+	int j = 0;
+	char *temp;
+	while (filePointer != EOF){
+		if (filePointer != '\n' && filePointer != ','){
+			strcpy(temp, filePointer);
+			max[i][j] = atoi(temp);
+			need[i][j] = atoi(temp);
+			printf("%d \n", max[i][j]);
+			j = j + 1;
+			if (j == resources){
+				j = 0;
+				i = i + 1;
+			}
+		}
+		filePointer = fgetc(in);
 	}
 	return 0;
 }

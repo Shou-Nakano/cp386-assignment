@@ -23,11 +23,11 @@ int main(int argc, char *argv[]) {
 	
 	if(argc<2)
 	{
-		printf("Input file name missing...exiting with error code -1\n");
+		printf("No initial resources provided, exiting with error code -1. \n");
 		return -1;
 	}
 
-	readFile(argv[1]);
+	readFile("sample4_in.txt");
 	// Prompt the user for input here. We should assume that using the run command ends the program.
 	while (done == false){
 		

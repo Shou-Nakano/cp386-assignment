@@ -17,7 +17,7 @@ int main() {
 	
 }
 
-int readFile(char* fileName, Thread** threads) // Reads the input file and sets up the vectors/matrices.
+int readFile(char* fileName) // Reads the input file and sets up the vectors/matrices.
 {
 	// How many lines are in the file?
 }

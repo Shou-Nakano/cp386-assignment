@@ -10,6 +10,8 @@ void asterisk();
 void run();
 int safetyAlgorithm();
 
+public int done = false;
+
 // The vectors/matrices will be defined here as global variables.
 
 int main(int argc, char *argv[]) {
@@ -22,7 +24,9 @@ int main(int argc, char *argv[]) {
 
 	readFile(argv[1]);
 	// Prompt the user for input here. We should assume that using the run command ends the program.
-
+	while (done == false){
+		
+	}
 	return 0;
 }
 
@@ -40,7 +44,7 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 		return -1;
 	}
 	// How many lines/commas and by extension, resources are in the file?
-
+	filePointer = getc(in);
 	while (filePointer != EOF)
     {
         if (filePointer == '\n'){
@@ -53,8 +57,9 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
         filePointer = getc(in);
     }
 
-	resources = (commas+lines)/lines;
-	printf("%d", resources); // A test print.
+	resources = (commas+lines)/lines; // This works, for sample4_in.txt, it printed 4.
+	// Next, dynamically set up the vectors/matrices.
+
 	return 0;
 }
 
@@ -73,7 +78,7 @@ void asterisk(){
 }
 
 void run(){ // This function should use safetyAlgorithm to check to see if there is a safe series of threads and if so, 'run' them as seen in the sample output.
-	
+	done = true;
 }
 
 int safetyAlgorithm(){ // This function should contain the safety algorithm that will be called by RQ, RL and run and will update the vector containing the safe sequence. If there is a safe sequence, return 0, if not, return -1. This should also update a vector containing the safe sequence.

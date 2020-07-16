@@ -149,13 +149,31 @@ void RQ(char* command){
 	strcpy(save, command); // Just in case we shouldn't RQ, we can use this same command to perform a RL.
 	save[1] = 'L';
 	printf("%s", save);
-	//char *token = strtok(command, " "); // Get rid of the RQ bit in the command.
+	char *token = strtok(command, " "); // Get rid of the RQ bit in the command.
+	int i = atoi(strtok(NULL, " ")); // Which row of the matrix should we look at?
+	int j = 0;
+	int number; // What is the token as a number?
+	int valid = 0; // Is this request valid? 0 if it is, -1 if it isn't. This will be checked by making sure that we don't exceed the maximum requestable resources for a thread.
+	int safe = 0; // Is this request safe? 0 if it is, -1 if it isn't.
+	token = strtok(NULL, " ");
+	while (token != NULL){
+		number = atoi(token);
+		allocation[i][j] = allocation[i][j] + number;
+		need[i][j] = need[i][j] - number;
+		if (need[i][j] < 0){ // This means that the thread has requestable more resources than it needs...
+			valid = -1;
+		}
+		j++;
+		token = strtok(NULL, " ");
+	}
+	safe = SafetyAlgorithm();
+	if (valid == -1 || safe == -1){
+		RL(save);
+	}
 }
 
 void RL(char* command){
-
-	SafetyAlgorithm();
-
+	printf("RL has run with the command %s.", command);
 }
 
 void Asterisk(){

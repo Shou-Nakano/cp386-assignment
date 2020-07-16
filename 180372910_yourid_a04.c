@@ -18,6 +18,9 @@ int ** need = NULL; // 2D array (number of processes by number of resources). If
 int varArgc;
 char ** varArgv = NULL;
 
+int resources; // Resources should equal (commas+lines)/lines. Do not edit these 2 variables outside of readFile.
+int processes;
+
 
 
 // The vectors/matrices will be defined here as global variables.
@@ -53,7 +56,7 @@ int main(int argc, char **argv) {
 			Run();
 		}
 		else{
-			printf("Invalid input; please input a valid command.");
+			printf("Invalid input; please input a valid command. \n");
 		}
 		while(prelude != NULL) {
 			prelude = strtok(NULL, " ");
@@ -72,8 +75,6 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	char filePointer;
 	int lines;
 	int commas;
-	int resources; // Resources should equal (commas+lines)/lines.
-	int processes;
 
 	if(!in)
 	{
@@ -143,7 +144,7 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 		}
 		filePointer = fgetc(in);
 	}
-	// Set up allocation (every element in allocation is 0).
+	// Set up allocation (every element in allocation starts as 0).
 	i = 0;
 	j = 0;
 	for (i = 0; i < processes; i++){
@@ -211,13 +212,44 @@ void RL(char* command){
 }
 
 void Asterisk(){
-	
+	int i; // Placeholder iterator variables.
+	int j;
+	printf("Currently Available Resources: ");
+	printf("\n");
+	for (j = 0; j < resources; j++){
+		printf("%d ", available[j]);
+	}
+	printf("\n");
+	printf("Maximum Allocatable Resources (each row is a process): ");
+	printf("\n");
+	for (i = 0; i < processes; i++){
+		for (j = 0; j < resources; j++){
+			printf("%d ", max[i][j]);
+		}
+	}
+	printf("\n");
+	printf("Currently Allocated Resources (each row is a process): ");
+	printf("\n");
+	for (i = 0; i < processes; i++){
+		for (j = 0; j < resources; j++){
+			printf("%d ", allocation[i][j]);
+		}
+	}
+	printf("\n");
+	printf("Currently Needed Resources (each row is a process): ");
+	printf("\n");
+	for (i = 0; i < processes; i++){
+		for (j = 0; j < resources; j++){
+			printf("%d ", need[i][j]);
+		}
+	}
+	printf("\n");
 }
 
 void Run(){ // This function should use safetyAlgorithm to check to see if there is a safe series of threads and if so, 'run' them as seen in the sample output.
-	printf("Run");
+	
 }
 
-int SafetyAlgorithm(){ // This function should contain the safety algorithm that will be called by RQ, RL and run and will update the vector containing the safe sequence. If there is a safe sequence, return 0, if not, return -1. This should also update a vector containing the safe sequence.
- 	return 0;
+int SafetyAlgorithm(){ // This function should contain the safety algorithm that will be called by RQ and run and will update the vector containing the safe sequence (you'll need to create a dynamic array somewhere, like with allocation). If there is a safe sequence, return 0, if not, return -1. This should also update a vector containing the safe sequence.
+ 	return 0; // Return 0 if it's safe and -1 if it isn't (as per the requirements).
 }

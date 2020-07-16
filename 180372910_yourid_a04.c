@@ -132,6 +132,8 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	for (j = 0; j < resources; j++){
 		printf("%d ", available[j]);
 	}
+	i = 0;
+	j = 0; // Reset i and j.
 	printf("\n");
 	printf("Maximum resources from file: \n");
 	while (filePointer != EOF){
@@ -140,6 +142,8 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 			temp = &filePointer;
 			max[i][j] = atoi(temp);
 			need[i][j] = atoi(temp);
+			printf("%d", i);
+			printf("%d", j);
 			j = j + 1;
 			if (j == resources){
 				j = 0;
@@ -230,6 +234,7 @@ void Asterisk(){
 		for (j = 0; j < columns; j++){
 			printf("%d ", max[i][j]);
 		}
+		printf("\n");
 	}
 	printf("\n");
 	printf("Currently Allocated Resources (each row is a process): ");
@@ -238,6 +243,7 @@ void Asterisk(){
 		for (j = 0; j < columns; j++){
 			printf("%d ", allocation[i][j]);
 		}
+		printf("\n");
 	}
 	printf("\n");
 	printf("Currently Needed Resources (each row is a process): ");
@@ -246,6 +252,7 @@ void Asterisk(){
 		for (j = 0; j < columns; j++){
 			printf("%d ", need[i][j]);
 		}
+		printf("\n");
 	}
 	printf("\n");
 }

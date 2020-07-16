@@ -11,6 +11,11 @@ void run();
 int safetyAlgorithm();
 
 public int done = false;
+int *available = NULL; // 1D vector for resources, which stores the number of available resources of each type. If available [j] = k, there are k instances of resource type Rj available.
+int ** max = NULL; // 2D array (number of processes by number of resources). If Max [i,j] = k, then process Timay request at most k instances of resource type Rj.
+int ** allocation = NULL; // 2D array (number of processes by number of resources). If Allocation[i,j] = k then Ti is currently allocated k instances of Rj.
+int ** need = NULL; // 2D array (number of processes by number of resources). If Need[i,j] = k, then Ti may need k more instances of Rj to complete its task.
+
 
 // The vectors/matrices will be defined here as global variables.
 
@@ -39,7 +44,6 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	int lines;
 	int commas;
 	int resources; // Resources should equal (commas+lines)/lines.
-	int *available = null; // 1D array for resources.
 
 	if(!in)
 	{
@@ -63,6 +67,7 @@ int readFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	resources = (commas+lines)/lines; // This works, for sample4_in.txt, it printed 4.
 	// Next, dynamically set up the vectors/matrices.
 	available = (int *)malloc(resources * sizeof(int)); // Create the Available vector.
+
 	// Finally, fill the contents of those vectors/matrices.
 
 	return 0;

@@ -142,8 +142,6 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 			temp = &filePointer;
 			max[i][j] = atoi(temp);
 			need[i][j] = atoi(temp);
-			printf("%d", i);
-			printf("%d", j);
 			j = j + 1;
 			if (j == resources){
 				j = 0;
@@ -167,7 +165,6 @@ void RQ(char* command){
 	char* save = (char*) malloc(100);
 	strcpy(save, command); // Just in case we shouldn't RQ, we can use this same command to perform a RL.
 	save[1] = 'L';
-	printf("%s", save);
 	char *token = strtok(command, " "); // Get rid of the RQ bit in the command.
 	int i = atoi(strtok(NULL, " ")); // Which row of the matrix should we look at?
 	int j = 0;
@@ -188,7 +185,11 @@ void RQ(char* command){
 	}
 	safe = SafetyAlgorithm();
 	if (valid == -1 || safe == -1){
+		printf("RQ Request denied; reversing the process with RL. \n");
 		RL(save);
+	}
+	else{
+		printf("RQ Request granted. \n");
 	}
 }
 
@@ -196,7 +197,6 @@ void RL(char* command){
 	char* save = (char*) malloc(100);
 	strcpy(save, command); // Just in case we shouldn't RL, we can use this same command to perform a RQ.
 	save[1] = 'Q';
-	printf("%s", save);
 	char *token = strtok(command, " "); // Get rid of the RL bit in the command.
 	int i = atoi(strtok(NULL, " ")); // Which row of the matrix should we look at?
 	int j = 0;
@@ -215,7 +215,11 @@ void RL(char* command){
 		token = strtok(NULL, " ");
 	}
 	if (valid == -1){
+		printf("RL Request denied; reversing the process with a RQ. \n");
 		RQ(save);
+	}
+	else{
+		printf("RL Request granted. \n");
 	}
 }
 

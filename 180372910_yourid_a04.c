@@ -76,6 +76,6 @@ void run(){ // This function should use safetyAlgorithm to check to see if there
 	
 }
 
-int safetyAlgorithm(){ // This function should contain the safety algorithm that will be called by RQ, RL and run and will update the vector containing the safe sequence. If there is a safe sequence, return 1, if not, return 0. This should also update a vector containing the safe sequence.
- 	return 1;
+int safetyAlgorithm(){ // This function should contain the safety algorithm that will be called by RQ, RL and run and will update the vector containing the safe sequence. If there is a safe sequence, return 0, if not, return -1. This should also update a vector containing the safe sequence.
+ 	return 0;
 }

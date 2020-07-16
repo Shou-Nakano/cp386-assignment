@@ -17,14 +17,14 @@ int ** allocation = NULL; // 2D array (number of processes by number of resource
 int ** need = NULL; // 2D array (number of processes by number of resources). If Need[i,j] = k, then Ti will need k more instances of Rj to complete its task.
 int varArgc;
 char ** varArgv = NULL;
-char * command = NULL;
 
 
 
 // The vectors/matrices will be defined here as global variables.
 
 int main(int argc, char **argv) {
-	char *prelude; // This will contain the first 2 characters of the user's command.
+	char *prelude = (char*)malloc(100); // This will contain the first 2 characters of the user's command.
+	char *command = (char*)malloc(100);
 	if(argc<2)
 	{
 		printf("No initial resources provided, exiting with error code -1. \n");
@@ -37,7 +37,7 @@ int main(int argc, char **argv) {
 	// Prompt the user for input here. We should assume that using the run command ends the program.
 	while (done == 0){
 		printf("Input your command: ");
-		scanf("%s", command);
+		fgets(command, 100, stdin); // We must use fgets.
 		// Get the first token in the command.
 		prelude = strtok(command, " ");
 		// Run a function based on the user's input.
@@ -51,10 +51,15 @@ int main(int argc, char **argv) {
 			Asterisk();
 		}
 		else if (strcmp(prelude, "Run") == 0){
+			done = 1;
 			Run();
 		}
 		else{
 			printf("Invalid input; please input a valid command.");
+		}
+		printf("%s", prelude);
+		while(prelude != NULL) {
+			prelude = strtok(NULL, " ");
 		}
 	}
 	free(available); // Don't forget to free everything at the end of the program.
@@ -137,14 +142,13 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	for (i = 0; i < processes; i++){
 		for (j = 0; j < resources; j++){
 			allocation[i][j] = 0;
-			printf("ok \n");
 		}
 	}
 	return 0;
 }
 
 void RQ(char* command){
-
+	printf("RQ");
 }
 
 void RL(char* command){
@@ -158,7 +162,7 @@ void Asterisk(){
 }
 
 void Run(){ // This function should use safetyAlgorithm to check to see if there is a safe series of threads and if so, 'run' them as seen in the sample output.
-	
+	printf("Run");
 }
 
 int SafetyAlgorithm(){ // This function should contain the safety algorithm that will be called by RQ, RL and run and will update the vector containing the safe sequence. If there is a safe sequence, return 0, if not, return -1. This should also update a vector containing the safe sequence.

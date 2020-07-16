@@ -120,7 +120,15 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	int j = 0;
 	char *temp;
 	filePointer = fgetc(in);
+	// Print some basic information.
+	printf("Number of Customers: %d", processes);
+	printf("Currently Available Resources: ");
+	for (j = 0; j < resources; j++){
+		printf("%d ", available[j]);
+	}
+	printf("Maximum resources from file: \n");
 	while (filePointer != EOF){
+		printf("%c", filePointer);
 		if (filePointer != '\n' && filePointer != ','){
 			temp = &filePointer;
 			max[i][j] = atoi(temp);
@@ -133,7 +141,7 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 		}
 		filePointer = fgetc(in);
 	}
-	// Set up allocation (every elemene in allocation is 0).
+	// Set up allocation (every element in allocation is 0).
 	i = 0;
 	j = 0;
 	for (i = 0; i < processes; i++){
@@ -158,9 +166,10 @@ void RQ(char* command){
 	token = strtok(NULL, " ");
 	while (token != NULL){
 		number = atoi(token);
+		available[j] = available[j] - number;
 		allocation[i][j] = allocation[i][j] + number;
 		need[i][j] = need[i][j] - number;
-		if (need[i][j] < 0){ // This means that the thread has requestable more resources than it needs...
+		if (need[i][j] < 0 || available[j] < 0){ // This means that the thread has requestable more resources than it needs or you don't have enough resources to give to the thread.
 			valid = -1;
 		}
 		j++;
@@ -173,7 +182,30 @@ void RQ(char* command){
 }
 
 void RL(char* command){
-	printf("RL has run with the command %s.", command);
+	char* save = (char*) malloc(100);
+	strcpy(save, command); // Just in case we shouldn't RL, we can use this same command to perform a RQ.
+	save[1] = 'Q';
+	printf("%s", save);
+	char *token = strtok(command, " "); // Get rid of the RL bit in the command.
+	int i = atoi(strtok(NULL, " ")); // Which row of the matrix should we look at?
+	int j = 0;
+	int number; // What is the token as a number?
+	int valid = 0; // Is this request valid? 0 if it is, -1 if it isn't. This will be checked by making sure that we don't give a thread less than 0 resources.
+	token = strtok(NULL, " ");
+	while (token != NULL){
+		number = atoi(token);
+		available[j] = available[j] + number;
+		allocation[i][j] = allocation[i][j] - number;
+		need[i][j] = need[i][j] + number;
+		if (allocation[i][j] < 0){ // This means that the thread has more resources than it needs...
+			valid = -1;
+		}
+		j++;
+		token = strtok(NULL, " ");
+	}
+	if (valid == -1){
+		RQ(save);
+	}
 }
 
 void Asterisk(){

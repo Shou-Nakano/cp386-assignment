@@ -112,7 +112,7 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	// Finally, fill the contents of those vectors/matrices.
 	// Set up available from argv.
 	for (int i=1; i < (varArgc); i++){
-		available[i] = atoi(*(varArgv+i));
+		available[i-1] = atoi(*(varArgv+i));
 	}
 	fseek(in, 0, SEEK_SET);
 	// Set up max/need (which are the same to start).
@@ -122,10 +122,12 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 	filePointer = fgetc(in);
 	// Print some basic information.
 	printf("Number of Customers: %d", processes);
+	printf("\n");
 	printf("Currently Available Resources: ");
 	for (j = 0; j < resources; j++){
 		printf("%d ", available[j]);
 	}
+	printf("\n");
 	printf("Maximum resources from file: \n");
 	while (filePointer != EOF){
 		printf("%c", filePointer);

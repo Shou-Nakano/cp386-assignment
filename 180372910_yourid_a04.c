@@ -17,6 +17,27 @@ int main() {
 	
 }
 
-void readFile(){
+int readFile(char* fileName, Thread** threads) // Reads the input file and sets up the vectors/matrices.
+{
+	// How many lines are in the file?
+}
 
+void RQ(){
+
+}
+
+void RL(){
+
+}
+
+void asterisk(){
+	
+}
+
+void run(){ // This function should use safetyAlgorithm to check to see if there is a safe series of threads and if so, 'run' them as seen in the sample output.
+	
+}
+
+int safetyAlgorithm(){ // This function should contain the safety algorithm that will be called by RQ, RL and run and will update the vector containing the safe sequence. If there is a safe sequence, return 1, if not, return 0. This should also update a vector containing the safe sequence.
+ 	
 }

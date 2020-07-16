@@ -18,8 +18,8 @@ int ** need = NULL; // 2D array (number of processes by number of resources). If
 int varArgc;
 char ** varArgv = NULL;
 
-int resources; // Resources should equal (commas+lines)/lines. Do not edit these 2 variables outside of readFile.
-int processes;
+int rows; // Number of rows in the matrix.
+int columns; // Number of columns in the matrix.
 
 
 
@@ -71,6 +71,8 @@ int main(int argc, char **argv) {
 
 int ReadFile(char* fileName) // Reads the input file and sets up the vectors/matrices. Presumably complete.
 {
+	int processes;
+	int resources; // Resources should equal (commas+lines)/lines.
 	FILE *in = fopen(fileName, "r");
 	char filePointer;
 	int lines;
@@ -96,6 +98,8 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
     }
 	processes = lines;
 	resources = (commas+lines)/lines; // This works, for sample4_in.txt, it printed 4.
+	rows = processes;
+	columns = resources;
 	// Next, dynamically set up the vectors/matrices.
 	available = (int *)malloc(resources * sizeof(int)); // Create the Available vector.
 	max = (int **)malloc(processes * sizeof(int *));
@@ -216,30 +220,30 @@ void Asterisk(){
 	int j;
 	printf("Currently Available Resources: ");
 	printf("\n");
-	for (j = 0; j < resources; j++){
+	for (j = 0; j < columns; j++){
 		printf("%d ", available[j]);
 	}
 	printf("\n");
 	printf("Maximum Allocatable Resources (each row is a process): ");
 	printf("\n");
-	for (i = 0; i < processes; i++){
-		for (j = 0; j < resources; j++){
+	for (i = 0; i < rows; i++){
+		for (j = 0; j < columns; j++){
 			printf("%d ", max[i][j]);
 		}
 	}
 	printf("\n");
 	printf("Currently Allocated Resources (each row is a process): ");
 	printf("\n");
-	for (i = 0; i < processes; i++){
-		for (j = 0; j < resources; j++){
+	for (i = 0; i < rows; i++){
+		for (j = 0; j < columns; j++){
 			printf("%d ", allocation[i][j]);
 		}
 	}
 	printf("\n");
 	printf("Currently Needed Resources (each row is a process): ");
 	printf("\n");
-	for (i = 0; i < processes; i++){
-		for (j = 0; j < resources; j++){
+	for (i = 0; i < rows; i++){
+		for (j = 0; j < columns; j++){
 			printf("%d ", need[i][j]);
 		}
 	}

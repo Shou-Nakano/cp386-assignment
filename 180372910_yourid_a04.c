@@ -215,7 +215,7 @@ void RL(char* command){
 		token = strtok(NULL, " ");
 	}
 	if (valid == -1){
-		printf("RL Request denied; reversing the process with a RQ. \n");
+		printf("RL Request denied; reversing the process with RQ. \n");
 		RQ(save);
 	}
 	else{

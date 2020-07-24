@@ -42,6 +42,7 @@ void Run();
 int SafetyAlgorithm();
 
 Features:
+
 -Reads from a text file with a variable number of processes/types of resources.
 
 -Takes input from the user in order to set up the number of resources at the start of the program.
@@ -95,74 +96,133 @@ Input your command: *
 Currently Available Resources:
 
 3 3 3 2
+
 Maximum Allocatable Resources (each row is a process):
+
 6 4 7 3
+
 4 2 3 2
+
 2 5 3 3
+
 6 3 3 2
+
 5 6 7 5
 
+
 Currently Allocated Resources (each row is a process):
+
 1 1 1 2
+
 0 0 0 0
+
 0 0 0 0
+
 0 0 0 0
+
 0 0 0 0
 
 Currently Needed Resources (each row is a process):
+
 5 3 6 1
+
 4 2 3 2
+
 2 5 3 3
+
 6 3 3 2
+
 5 6 7 5
 
 Input your Command: Run
 
 Code Example:
+
 Example of Asterisk():
+
 void Asterisk(){
+
 	int i; // Placeholder iterator variables.
+
 	int j;
+
 	printf("Currently Available Resources: ");
+
 	printf("\n");
+
 	for (j = 0; j < columns; j++){
+
 		printf("%d ", available[j]);
+
 	}
+
 	printf("\n");
+
 	printf("Maximum Allocatable Resources (each row is a process): ");
+
 	printf("\n");
+
 	for (i = 0; i < rows; i++){
+
 		for (j = 0; j < columns; j++){
+
 			printf("%d ", max[i][j]);
+
 		}
+
 		printf("\n");
+
 	}
+
 	printf("\n");
+
 	printf("Currently Allocated Resources (each row is a process): ");
+
 	printf("\n");
+
 	for (i = 0; i < rows; i++){
+
 		for (j = 0; j < columns; j++){
+
 			printf("%d ", allocation[i][j]);
+
 		}
+
 		printf("\n");
+
 	}
+
 	printf("\n");
+
 	printf("Currently Needed Resources (each row is a process): ");
+
 	printf("\n");
+
 	for (i = 0; i < rows; i++){
+
 		for (j = 0; j < columns; j++){
+
 			printf("%d ", need[i][j]);
+
 		}
+
 		printf("\n");
+
 	}
+
 	printf("\n");
+
 }
 
+
 Authors:
+
 Shou Nakano
+
 Rachel Danni Shang
 
 Credits:
+
 Example of strtok(), atoi(), fgets(), malloc() and other functions were used in order to properly create multiple functions.
 
 License:

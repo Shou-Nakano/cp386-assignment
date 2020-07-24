@@ -1,10 +1,15 @@
 Project Title:
 CP386: Assignment 4: Bankers' Algorithm
+
 Motivation:
 To run the bankers' algorithm in C on a variety of processes that require a variety of resources of varying types in an easy-to-understand format.
+
 Installation:
-Copy the code in the C file into nano a4.c
-Type
+Copy the code in the C file into a nano file named a4.c
+Copy the sample text (or your own text) into a nano file named sample4_in.txt
+Save the code and type make (providing that the Makefile.mk file has been set up).
+Type ./Assignment_4 sample4_in.txt to start the program.
+
 Screenshots:
 
 Individual Contribution:
@@ -74,7 +79,7 @@ License:
 
 MIT License
 
-Copyright (c) [year] [fullname]
+Copyright (c) 2020, Shou Nakano/Rachel Danni Shang
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

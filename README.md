@@ -1,12 +1,12 @@
-Project Title:
+**Project Title:**
 
 CP386: Assignment 4: Bankers' Algorithm
 
-Motivation:
+**Motivation:**
 
 To run the bankers' algorithm in C on a variety of processes that require a variety of resources of varying types in an easy-to-understand format.
 
-Installation:
+**Installation:**
 
 Copy the code in the C file into a nano file named a4.c
 
@@ -16,13 +16,14 @@ Save the code and type make (providing that the Makefile.mk file has been set up
 
 Type ./Assignment_4 sample4_in.txt to start the program.
 
-Screenshots:
+**Screenshots:**
 
 ![Screenshot #1](https://i.imgur.com/gjAHIds.png)
 
 ![Screenshot #2](https://i.imgur.com/0fBR4g1.png)
 
-Individual Contribution:
+**Individual Contribution:**
+
 Shou Nakano:
 
 int main(int argc, char **argv);
@@ -41,7 +42,7 @@ void Run();
 
 int SafetyAlgorithm();
 
-Features:
+**Features:**
 
 -Reads from a text file with a variable number of processes/types of resources.
 
@@ -53,7 +54,7 @@ Features:
 
 -Contains a safety algorithm, which is used to check to see if an allocation/deallocation is valid or not.
 
-Tests:
+**Tests:**
 
 osc@ubuntu:~$ ./Assignment_4 4 4 4 4
 
@@ -136,7 +137,7 @@ Currently Needed Resources (each row is a process):
 
 Input your Command: Run
 
-Code Example:
+**Code Example:**
 
 Example of Asterisk():
 
@@ -215,17 +216,17 @@ void Asterisk(){
 }
 
 
-Authors:
+**Authors:**
 
 Shou Nakano
 
 Rachel Danni Shang
 
-Credits:
+**Credits:**
 
-Example of strtok(), atoi(), fgets(), malloc() and other functions were used in order to properly create multiple functions.
+Examples of strtok(), atoi(), fgets(), malloc() and other functions were used in order to properly create multiple functions.
 
-License:
+**License:**
 
 MIT License
 

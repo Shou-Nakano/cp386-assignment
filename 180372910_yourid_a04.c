@@ -17,6 +17,9 @@ int ** allocation = NULL; // 2D array (number of processes by number of resource
 int ** need = NULL; // 2D array (number of processes by number of resources). If Need[i,j] = k, then Ti will need k more instances of Rj to complete its task.
 int varArgc;
 char ** varArgv = NULL;
+int *safeSeq = NULL; // 1D vector to store safe sequence
+int *work = NULL;
+int *finish = NULL;
 
 int rows; // Number of rows in the matrix.
 int columns; // Number of columns in the matrix.
@@ -266,5 +269,107 @@ void Run(){ // This function should use safetyAlgorithm to check to see if there
 }
 
 int SafetyAlgorithm(){ // This function should contain the safety algorithm that will be called by RQ and run and will update the vector containing the safe sequence (you'll need to create a dynamic array somewhere, like with allocation). If there is a safe sequence, return 0, if not, return -1. This should also update a vector containing the safe sequence.
- 	return 0; // Return 0 if it's safe and -1 if it isn't (as per the requirements).
+ 	
+	// Create an array to store the safety sequence
+	// Initialize as "-1" for each thread to show that sequence is currently invalid
+	safeSeq = (int *)malloc(rows * sizeof(int));
+	for (int i = 0; i < rows; i++) {
+		safeSeq[i] = -1;
+	}
+
+	// Create vectors for Work and Finish and initialize values
+	work = (int *)malloc(columns * sizeof(int));
+	for (int i = 0; i < columns; i++) {
+		// Initially, the work array is the same as the available array
+		work[i] = available[i];
+	}
+
+	finish = (int *)malloc(rows * sizeof(int));
+	// Initially, each element in the finish array is set to false because no processes have completed execution yet
+	for (int i = 0; i < rows; i++) {
+		finish[i] = FALSE;
+	}
+
+	int count = 0;
+	// Safe variable will be returned by the function to determine if a resource request will leave the system in a safe state
+	// 0 = safe, -1 = not safe
+	int safe = 0;
+	int sequenceNum = 0;
+	int columnCount = 0;
+
+	// Keep looping while not all processes have been added to the safety sequence (i.e. not all processes have finished execution)
+	while (sequenceNum != rows) {
+		// Increment the count variable to keep track of how many times the while loop has run
+		count++;
+		// Loop through each process
+		for (int i = 0; i < rows; i++) {
+			// Check if the 2 conditions are met (finish[i] = false and need <= work)
+			if (finish[i] == FALSE) {
+				columnCount = 0;
+				// Loop through all elements of the work array
+				for (int j = 0; j < columns; j++) {
+					// Check to see if the resources that a process still needs are less than the available
+					// number of resources found in the work array
+					if (need[i][j] <= work[j]) {
+						// If so, then the condition is fulfilled, so increment columnCount
+						columnCount++;
+					}
+					else {
+						// Otherwise, condition is not fulfilled, so the loop can be exited
+						break;
+					}
+				}
+				// If columnCount equals number of resources, that means that the condition need <= work is fulfilled
+				if (columnCount == columns) {
+					// Put the process index into the safety sequence as the next process to run
+					safeSeq[sequenceNum] = i;
+					// Increment the index so we can get the next process
+					sequenceNum++;
+					// Set finish[i] = true to show that the process has been executed
+					finish[i] = true;
+					// Allocated resources have been used, so increment work by the number of allocated resources
+					for (int k = 0; k < columns; k++) {
+						work[k] = work[k] + allocation[i][k];
+					}
+				}
+			}
+		}
+
+		// After looping through all processes once, we can start checking to see if there are any more processes that can be run (that meets both conditions).
+		// If not, then we can stop looping
+		if (count == rows) {
+			// Loop through each process to see if there still exists a process which hasn't been run
+			// and which doesn't need resources that exceed the amount of resources available (meets both conditions)
+			for (int i = 0; i < rows; i++) {
+				if (finish[i] == FALSE) {
+					for (int j = 0; j < columns; j++) {
+						// If the amount of resources needed is greater than the amount of resources available, then the condition is not fulfilled
+						if (need[i][j] > work[j]) {
+							// Therefore, the system is unsafe and we can exit the while loop using a goto statement
+							safe = -1;
+							goto endLoop;
+						}
+					}
+				}
+			}
+		}
+
+	}
+
+	// After exiting the while loop, the goto statement will take us here
+	endLoop:
+		printf("\n");
+		for (int i = 0; i < rows; i++) {
+				printf("%i, ", safeSeq[i]);
+		}
+		// The system is unsafe, and we can return the safe variable to the calling function
+		return safe;
+
+	// Print the safe sequence and return the safe variable to the calling function
+	printf("\n");
+	for (int i = 0; i < rows; i++) {
+		printf("%i, ", safeSeq[i]);
+	}
+
+	return safe;
 }

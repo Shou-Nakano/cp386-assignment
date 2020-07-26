@@ -2,6 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
+#include <pthread.h>
+#define FALSE 0
+#define TRUE 1
+
+typedef struct thread //represents a single thread
+{
+	char tid[4];//id of the thread as read from file
+	int state;
+	pthread_t handle;
+} Thread;
 
 int ReadFile (char* fileName);
 void RQ(char* command);
@@ -69,6 +80,7 @@ int main(int argc, char **argv) {
 	free(max);
 	free(allocation);
 	free(need);
+	free(safeSeq);
 	return 0;
 }
 
@@ -266,7 +278,94 @@ void Asterisk(){
 
 void Run(){ // This function should use safetyAlgorithm to check to see if there is a safe series of threads and if so, 'run' them as seen in the sample output.
 	
+	int safe = SafetyAlgorithm();
+	printf("safe: %i\n", safe);
+	if (safe == 0) {
+		printf("Safe Sequence is: < ");
+		for (int i = 0; i < rows; i++) {
+			printf("%i ", safeSeq[i]);
+		}
+		printf(">\n");
+	}
+	printf("Now going to execute the threads:\n");
+
+	char *charArr[columns];
+	char c[sizeof(char)];
+	snprintf(c, sizeof(char), "%i", 'R');
+	charArr[0] = malloc(sizeof(c));
+	strcpy(charArr[0], c);
+	snprintf(c, sizeof(char), "%i", 'Q');
+	charArr[1] = malloc(sizeof(c));
+	strcpy(charArr[1], c);
+	snprintf(c, sizeof(char), "%i", ' ');
+	charArr[2] = malloc(sizeof(c));
+	strcpy(charArr[2], c);
+	//char* charArr = (char*) malloc(100);
+
+	for (int i = 0; i < rows; i++) {
+		printf("--> Customer/Thread %i\n", safeSeq[i]);
+		printf("        Allocated resources:   ");
+		for (int j = 0; j < columns; j++) {
+			printf(" %i", allocation[i][j]);
+		}
+		printf("\n");
+		printf("        Needed:   ");
+		int space = 0;
+		for (int j = 0; j < columns; j++) {
+			char c[sizeof(int)];
+			snprintf(c, sizeof(int), "%i", need[i][j]);
+			charArr[j+3+space] = malloc(sizeof(c));
+			strcpy(charArr[j+3+space], c);
+			//printf("%s", charArr[j+3+space]);
+			snprintf(c, sizeof(char), "%s", " ");
+			charArr[j+4+space] = malloc(sizeof(c));
+			strcpy(charArr[j+4+space],c);
+			//printf("%s", charArr[j+4+space]);
+			space++;
+		}
+		printf("\n");
+		for(int i = 0; i < 11; i++) {
+			printf("%s",charArr[i]);
+		}
+		printf("        Available:   ");
+		for (int j = 0; j < columns; j++) {
+			printf(" %i", available[j]);
+		}
+		printf("\n");
+		RQ(*charArr);
+		printf("        Thread has started\n");
+		printf("        Thread has finished\n");
+		printf("        Allocated resources: ");
+		char *charArr2[columns];
+		for (int j = 0; j < columns; j++) {
+			char c[sizeof(int)];
+			snprintf(c, sizeof(int), "%i", allocation[i][j]);
+			charArr2[j] = malloc(sizeof(c));
+			strcpy(charArr2[j], c);
+			printf("%s", charArr2[j]);
+		}
+		printf("\n");
+		RL(*charArr2);
+		printf("        Thread is releasing resources\n");
+		printf("        New Available:   ");
+		for (int j = 0; j < columns; j++) {
+			printf(" %i", available[j]);
+		}
+		printf("\n");
+	}
 }
+
+/*
+void logStart(char* tID)
+{
+	printf("[%ld] New Thread with ID %s is started.\n", getCurrentTime(), tID);
+}
+
+void logFinish(char* tID)
+{
+	printf("[%ld] Thread with ID %s is finished.\n", getCurrentTime(), tID);
+}
+*/
 
 int SafetyAlgorithm(){ // This function should contain the safety algorithm that will be called by RQ and run and will update the vector containing the safe sequence (you'll need to create a dynamic array somewhere, like with allocation). If there is a safe sequence, return 0, if not, return -1. This should also update a vector containing the safe sequence.
  	

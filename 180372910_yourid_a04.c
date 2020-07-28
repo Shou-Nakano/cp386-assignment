@@ -4,14 +4,16 @@
 #include <string.h>
 #include <stdbool.h>
 #include <pthread.h>
+#include <semaphore.h>
 #define FALSE 0
 #define TRUE 1
 
 typedef struct thread //represents a single thread
 {
-	char tid[4];//id of the thread as read from file
+	int index;//id of the thread as read from file
 	int state;
 	pthread_t handle;
+	int retVal;
 } Thread;
 
 int ReadFile (char* fileName);
@@ -20,6 +22,7 @@ void RL(char* command);
 void Asterisk();
 void Run();
 int SafetyAlgorithm();
+void* threadExec(void* t);
 
 int done = 0;
 int *available = NULL; // 1D vector for resources, which stores the number of available resources of each type. If available [j] = k, there are k instances of resource type Rj available.
@@ -31,10 +34,12 @@ char ** varArgv = NULL;
 int *safeSeq = NULL; // 1D vector to store safe sequence
 int *work = NULL;
 int *finish = NULL;
+Thread* threads = NULL;
+sem_t semaphore;
+int ret;
 
 int rows; // Number of rows in the matrix.
 int columns; // Number of columns in the matrix.
-
 
 
 // The vectors/matrices will be defined here as global variables.
@@ -274,6 +279,99 @@ void Asterisk(){
 		printf("\n");
 	}
 	printf("\n");
+}
+
+void* threadExec(void* t) {
+
+	// Mutex
+
+	char* charArray = (char*) malloc(100);
+	int* intArray = (int*) malloc(100);
+	for (int i = 0; i < columns; i++) {
+		int number = need[((Thread*)t)->index][i];
+		intArray[i] = number;
+	}
+
+
+	charArray[0] = 'R';
+	charArray[1] = 'Q';
+	charArray[2] = ' ';
+
+	/*
+	for (int i = 0; i < 3; i++) {
+		printf("%i ", charArray[i]);
+	}
+	*/
+
+
+	int j = 0;
+	for (int i = 3; i < rows; i = i + 2) {
+		charArray[i] = intArray[j] + '0';
+		charArray[i + 1] = ' ';
+		j++;
+	}
+
+	puts(charArray);
+	printf("\n");
+
+	size_t len = strlen(charArray);
+
+	for (int i = 0; i < len; i++) {
+		printf("%i", charArray[i]);
+	}
+	printf("\n");
+
+	char* charArrayRL = (char*) malloc(100);
+	int* intArray2 = (int*) malloc(100);
+	for (int i = 0; i < columns; i++) {
+		int number = allocation[((Thread*)t)->index][i];
+		intArray2[i] = number;
+	}
+
+
+	charArrayRL[0] = 'R';
+	charArrayRL[1] = 'L';
+	charArrayRL[2] = ' ';
+
+	j = 0;
+	for (int i = 3; i < rows; i = i + 2) {
+		charArrayRL[i] = intArray2[j] + '0';
+		charArrayRL[i + 1] = ' ';
+		j++;
+	}
+
+	puts(charArrayRL);
+	printf("\n");
+
+	sem_wait(&semaphore);
+
+	// Critical section starts here
+
+	//printf("%i\n", ((Thread*)t)->index);
+	printf("        Thread %i has started\n", ((Thread*)t)->index);
+
+	// Request needed number of resources
+
+	RQ(charArray);
+
+	printf("        Thread %i has finished\n", ((Thread*)t)->index);
+
+	// Release allocated resources
+	printf("        Thread is releasing resources\n");
+
+	RL(charArrayRL);
+
+	printf("        Now available:");
+	for (int i = 0; i < columns; i++) {
+		printf(" %i", available[i]);
+	}
+	printf("\n");
+
+	// Critical section ends here
+
+	sem_post(&semaphore);
+	return 0;
+
 }
 
 void Run(){ // This function should use safetyAlgorithm to check to see if there is a safe series of threads and if so, 'run' them as seen in the sample output.

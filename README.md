@@ -1,6 +1,6 @@
 **Project Title:**
 
-CP386 - Assignment 4: Bankers' Algorithm
+CP386 Assignment 4: Bankers' Algorithm
 
 **Motivation:**
 
@@ -38,7 +38,6 @@ void RL(char* command);
 
 void Asterisk(); 
 
-&nbsp;
 &nbsp;
 
 Danni (Rachel) Shang:
@@ -157,90 +156,89 @@ Safe Sequence Is: < 0 1 2 3 4 >\
 Now going to execute the threads:
 
 &nbsp;
-&nbsp;
+
 
 --------------------------------------------\
 --> Customer/Thread 0 \
-        Need:    5 3 6 1\
-	Allocated resources:    1 1 1 2\
-	Available:    9 5 6 6\
+        Need:&nbsp; &nbsp; &nbsp;    5 3 6 1\
+	Allocated resources:&nbsp; &nbsp; &nbsp;    1 1 1 2\
+	Available:&nbsp; &nbsp; &nbsp;    9 5 6 6\
 	Thread 0 has started\
 	Request all needed resources\
 	RQ Request granted.\
-	New need array:    0 0 0 0\
-	New allocation array:    6 4 7 3\
-	New available array:    4 2 0 5\
+	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+	New allocation array:&nbsp; &nbsp; &nbsp;    6 4 7 3\
+	New available array:&nbsp; &nbsp; &nbsp;    4 2 0 5\
 	State still safe: Yes\
 	Thread 0 has finished\
 	Thread is releasing resources\
 	RL Request granted.\
-	Now available:    10 6 7 8\
+	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 --------------------------------------------\
 --> Customer/Thread 1 \
-        Need:    4 2 3 2\
-	Allocated resources:    0 0 0 0\
-	Available:    10 6 7 8\
+        Need:&nbsp; &nbsp; &nbsp;    4 2 3 2\
+	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 	Thread 1 has started\
 	Request all needed resources\
 	RQ Request granted.\
-	New need array:    0 0 0 0\
-	New allocation array:    4 2 3 2\
-	New available array:    6 4 4 6\
+	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+	New allocation array:&nbsp; &nbsp; &nbsp;    4 2 3 2\
+	New available array:&nbsp; &nbsp; &nbsp;    6 4 4 6\
 	State still safe: Yes\
 	Thread 1 has finished\
 	Thread is releasing resources\
 	RL Request granted.\
-	Now available:    10 6 7 8\
+	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 --------------------------------------------\
 --> Customer/Thread 2 \
-        Need:    2 5 3 3\
-	Allocated resources:    0 0 0 0\
-	Available:    10 6 7 8\
+        Need:&nbsp; &nbsp; &nbsp;    2 5 3 3\
+	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 	Thread 2 has started\
 	Request all needed resources\
 	RQ Request granted.\
-	New need array:    0 0 0 0\
-	New allocation array:    2 5 3 3\
-	New available array:    8 1 4 5\
+	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+	New allocation array:&nbsp; &nbsp; &nbsp;    2 5 3 3\
+	New available array:&nbsp; &nbsp; &nbsp;    8 1 4 5\
 	State still safe: Yes\
 	Thread 2 has finished\
 	Thread is releasing resources\
 	RL Request granted.\
-	Now available:    10 6 7 8\
+	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 --------------------------------------------\
 --> Customer/Thread 3 \
-        Need:    6 3 3 2\
-	Allocated resources:    0 0 0 0\
-	Available:    10 6 7 8\
+        Need:&nbsp; &nbsp; &nbsp;    6 3 3 2\
+	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 	Thread 3 has started\
 	Request all needed resources\
 	RQ Request granted.\
-	New need array:    0 0 0 0\
-	New allocation array:    6 3 3 2\
-	New available array:    4 3 4 6\
+	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+	New allocation array:&nbsp; &nbsp; &nbsp;    6 3 3 2\
+	New available array:&nbsp; &nbsp; &nbsp;    4 3 4 6\
 	State still safe: Yes\
 	Thread 3 has finished\
 	Thread is releasing resources\
 	RL Request granted.\
-	Now available:    10 6 7 8\
+	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 --------------------------------------------\
 --> Customer/Thread 4 \
-        Need:    5 6 7 5\
-	Allocated resources:    0 0 0 0\
-	Available:    10 6 7 8\
+        Need:&nbsp; &nbsp; &nbsp;    5 6 7 5\
+	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 	Thread 4 has started\
 	Request all needed resources\
 	RQ Request granted.\
-	New need array:    0 0 0 0\
-	New allocation array:    5 6 7 5\
-	New available array:    5 0 0 3\
+	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+	New allocation array:&nbsp; &nbsp; &nbsp;    5 6 7 5\
+	New available array:&nbsp; &nbsp; &nbsp;    5 0 0 3\
 	State still safe: Yes\
 	Thread 4 has finished\
 	Thread is releasing resources\
 	RL Request granted.\
-	Now available:    10 6 7 8
+	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8
 	
-&nbsp;
 &nbsp;
 
 TEST #2:

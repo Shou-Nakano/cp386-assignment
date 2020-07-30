@@ -2,11 +2,13 @@
 
 CP386 Assignment 4: Bankers' Algorithm
 
+**Description:**
+
+The program would simulate a bank machine keeping track of resources, with customers requesting and releasing resources to and from the bank. The banker will only grant a request if it leaves the system in a safe state, as determined by the safety algorithm.
+
 **Motivation:**
 
 To run the bankers' algorithm in C on a variety of processes that require a variety of resources of varying types in an easy-to-understand format. 
-
-The program would simulate a bank machine keeping track of resources, with customers requesting and releasing resources to and from the bank. The banker will only grant a request if it leaves the system in a safe state.
 
 **Installation:**
 

@@ -8,6 +8,7 @@
 // Define the values of booleans false and true
 #define FALSE 0
 #define TRUE 1
+#define SIZE 100
 
 typedef struct thread // Represents a single thread
 {
@@ -51,8 +52,8 @@ int main(int argc, char **argv) {
 	// Initiate threads object so that it's big enough to store all threads
 	threads = (Thread*) malloc(sizeof(Thread)*rows); 
 	
-	char *prelude = (char*)malloc(100); // This will be used to get rid of the tokens in the fgets string.
-	char *command = (char*)malloc(100);
+	char *prelude = (char*)malloc(SIZE); // This will be used to get rid of the tokens in the fgets string.
+	char *command = (char*)malloc(SIZE);
 	if(argc<2)
 	{
 		printf("No initial resources provided, exiting with error code -1. \n");
@@ -65,7 +66,7 @@ int main(int argc, char **argv) {
 	// Prompt the user for input here. We should assume that using the run command ends the program.
 	while (done == 0){
 		printf("Input your command: ");
-		fgets(command, 100, stdin); // We must use fgets to get the user's input, since their input will have spaces.
+		fgets(command, SIZE, stdin); // We must use fgets to get the user's input, since their input will have spaces.
 		// Run a function based on the user's input.
 		if (strncmp(command, "RQ", 2) == 0){
 			RQ(command);
@@ -190,7 +191,7 @@ int ReadFile(char* fileName) // Reads the input file and sets up the vectors/mat
 }
 
 void RQ(char* command){
-	char* save = (char*) malloc(100);
+	char* save = (char*) malloc(SIZE);
 	strcpy(save, command); // Just in case we shouldn't RQ, we can use this same command to perform a RL.
 	save[1] = 'L';
 	char *token = strtok(command, " "); // Get rid of the RQ bit in the command.
@@ -243,7 +244,7 @@ void RQ(char* command){
 }
 
 void RL(char* command){
-	char* save = (char*) malloc(100);
+	char* save = (char*) malloc(SIZE);
 	strcpy(save, command); // Just in case we shouldn't RL, we can use this same command to perform a RQ.
 	save[1] = 'Q';
 	char *token = strtok(command, " "); // Get rid of the RL bit in the command.
@@ -319,8 +320,8 @@ void* threadExec(void* t) { // Function invoked by a new thread created by pthre
 
 	// Critical section starts here
 	// Create arrays to store matrix values
-	char* charArray = (char*) malloc(100);
-	int* intArray = (int*) malloc(100);
+	char* charArray = (char*) malloc(SIZE);
+	int* intArray = (int*) malloc(SIZE);
 	int number;
 	
 	// Put each element in Thread i's row of the need matrix into intArray
@@ -381,8 +382,8 @@ void* threadExec(void* t) { // Function invoked by a new thread created by pthre
 	printf("        Thread %i has finished\n", ((Thread*)t)->index);
 
 	// After thread finishes execution, create another char array and int array to store values of allocated resources
-	char* charArrayRL = (char*) malloc(100);
-	int* intArray2 = (int*) malloc(100);
+	char* charArrayRL = (char*) malloc(SIZE);
+	int* intArray2 = (int*) malloc(SIZE);
 	for (int i = 0; i < columns; i++) {
 		number = allocation[((Thread*)t)->index][i];
 		intArray2[i] = number;

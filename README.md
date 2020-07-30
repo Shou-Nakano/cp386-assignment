@@ -20,9 +20,21 @@ Type ./Assignment_4 sample4_in.txt to start the program.
 
 **Screenshots:**
 
+TEST #1:
+
 ![image](https://user-images.githubusercontent.com/33897109/88879861-587efa80-d1f9-11ea-9c10-1da16b885a74.png)
 
 ![image](https://user-images.githubusercontent.com/33897109/88879975-95e38800-d1f9-11ea-8975-3b1c09304a1d.png)
+
+![image](https://user-images.githubusercontent.com/33897109/88880046-c9bead80-d1f9-11ea-9aa5-148be26d8d95.png)
+
+![image](https://user-images.githubusercontent.com/33897109/88880094-e22ec800-d1f9-11ea-9de5-437201f944cc.png)
+
+![image](https://user-images.githubusercontent.com/33897109/88880127-f672c500-d1f9-11ea-81e1-de25a57a49dc.png)
+
+TEST #2:
+
+![image](https://user-images.githubusercontent.com/33897109/88880189-17d3b100-d1fa-11ea-81a2-7817db286da1.png)
 
 **Individual Contribution:**
 
@@ -47,6 +59,8 @@ void* threadExec(void* t);
 void Run(Thread** threads);
 
 int SafetyAlgorithm();
+
+&nbsp;
 
 **Features:**
 

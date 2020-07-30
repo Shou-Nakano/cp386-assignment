@@ -20,9 +20,7 @@ Type ./Assignment_4 sample4_in.txt to start the program.
 
 **Screenshots:**
 
-![Screenshot #1](https://i.imgur.com/gjAHIds.png)
-
-![Screenshot #2](https://i.imgur.com/0fBR4g1.png)
+![image](https://user-images.githubusercontent.com/33897109/88879861-587efa80-d1f9-11ea-9c10-1da16b885a74.png)
 
 **Individual Contribution:**
 

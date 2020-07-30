@@ -174,84 +174,84 @@ Now going to execute the threads:
 
 --------------------------------------------\
 --> Customer/Thread 0 \
-        Need:&nbsp; &nbsp; &nbsp;    5 3 6 1\
-	Allocated resources:&nbsp; &nbsp; &nbsp;    1 1 1 2\
-	Available:&nbsp; &nbsp; &nbsp;    9 5 6 6\
-	Thread 0 has started\
-	Request all needed resources\
-	RQ Request granted.\
-	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
-	New allocation array:&nbsp; &nbsp; &nbsp;    6 4 7 3\
-	New available array:&nbsp; &nbsp; &nbsp;    4 2 0 5\
-	State still safe: Yes\
-	Thread 0 has finished\
-	Thread is releasing resources\
-	RL Request granted.\
-	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Need:&nbsp; &nbsp; &nbsp;    5 3 6 1\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Allocated resources:&nbsp; &nbsp; &nbsp;    1 1 1 2\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Available:&nbsp; &nbsp; &nbsp;    9 5 6 6\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 0 has started\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Request all needed resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RQ Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New allocation array:&nbsp; &nbsp; &nbsp;    6 4 7 3\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New available array:&nbsp; &nbsp; &nbsp;    4 2 0 5\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	State still safe: Yes\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 0 has finished\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread is releasing resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RL Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 --------------------------------------------\
 --> Customer/Thread 1 \
-        Need:&nbsp; &nbsp; &nbsp;    4 2 3 2\
-	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
-	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
-	Thread 1 has started\
-	Request all needed resources\
-	RQ Request granted.\
-	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
-	New allocation array:&nbsp; &nbsp; &nbsp;    4 2 3 2\
-	New available array:&nbsp; &nbsp; &nbsp;    6 4 4 6\
-	State still safe: Yes\
-	Thread 1 has finished\
-	Thread is releasing resources\
-	RL Request granted.\
-	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Need:&nbsp; &nbsp; &nbsp;    4 2 3 2\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 1 has started\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Request all needed resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RQ Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New allocation array:&nbsp; &nbsp; &nbsp;    4 2 3 2\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New available array:&nbsp; &nbsp; &nbsp;    6 4 4 6\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	State still safe: Yes\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 1 has finished\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread is releasing resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RL Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 --------------------------------------------\
 --> Customer/Thread 2 \
-        Need:&nbsp; &nbsp; &nbsp;    2 5 3 3\
-	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
-	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
-	Thread 2 has started\
-	Request all needed resources\
-	RQ Request granted.\
-	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
-	New allocation array:&nbsp; &nbsp; &nbsp;    2 5 3 3\
-	New available array:&nbsp; &nbsp; &nbsp;    8 1 4 5\
-	State still safe: Yes\
-	Thread 2 has finished\
-	Thread is releasing resources\
-	RL Request granted.\
-	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Need:&nbsp; &nbsp; &nbsp;    2 5 3 3\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 2 has started\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Request all needed resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RQ Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New allocation array:&nbsp; &nbsp; &nbsp;    2 5 3 3\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New available array:&nbsp; &nbsp; &nbsp;    8 1 4 5\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	State still safe: Yes\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 2 has finished\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread is releasing resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RL Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 --------------------------------------------\
 --> Customer/Thread 3 \
-        Need:&nbsp; &nbsp; &nbsp;    6 3 3 2\
-	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
-	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
-	Thread 3 has started\
-	Request all needed resources\
-	RQ Request granted.\
-	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
-	New allocation array:&nbsp; &nbsp; &nbsp;    6 3 3 2\
-	New available array:&nbsp; &nbsp; &nbsp;    4 3 4 6\
-	State still safe: Yes\
-	Thread 3 has finished\
-	Thread is releasing resources\
-	RL Request granted.\
-	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Need:&nbsp; &nbsp; &nbsp;    6 3 3 2\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 3 has started\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Request all needed resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RQ Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New allocation array:&nbsp; &nbsp; &nbsp;    6 3 3 2\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New available array:&nbsp; &nbsp; &nbsp;    4 3 4 6\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	State still safe: Yes\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 3 has finished\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread is releasing resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RL Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
 --------------------------------------------\
 --> Customer/Thread 4 \
-        Need:&nbsp; &nbsp; &nbsp;    5 6 7 5\
-	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
-	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
-	Thread 4 has started\
-	Request all needed resources\
-	RQ Request granted.\
-	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
-	New allocation array:&nbsp; &nbsp; &nbsp;    5 6 7 5\
-	New available array:&nbsp; &nbsp; &nbsp;    5 0 0 3\
-	State still safe: Yes\
-	Thread 4 has finished\
-	Thread is releasing resources\
-	RL Request granted.\
-	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Need:&nbsp; &nbsp; &nbsp;    5 6 7 5\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Allocated resources:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Available:&nbsp; &nbsp; &nbsp;    10 6 7 8\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 4 has started\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Request all needed resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RQ Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New need array:&nbsp; &nbsp; &nbsp;    0 0 0 0\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New allocation array:&nbsp; &nbsp; &nbsp;    5 6 7 5\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	New available array:&nbsp; &nbsp; &nbsp;    5 0 0 3\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	State still safe: Yes\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread 4 has finished\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Thread is releasing resources\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	RL Request granted.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	Now available:&nbsp; &nbsp; &nbsp;    10 6 7 8
 	
 &nbsp;
 

@@ -156,7 +156,10 @@ Current State: Safe\
 Safe Sequence Is: < 0 1 2 3 4 >\
 Now going to execute the threads:
 
----------------------------------------\
+&nbsp;
+&nbsp;
+
+--------------------------------------------\
 --> Customer/Thread 0 \
         Need:    5 3 6 1\
 	Allocated resources:    1 1 1 2\
@@ -172,7 +175,7 @@ Now going to execute the threads:
 	Thread is releasing resources\
 	RL Request granted.\
 	Now available:    10 6 7 8\
----------------------------------------\
+--------------------------------------------\
 --> Customer/Thread 1 \
         Need:    4 2 3 2\
 	Allocated resources:    0 0 0 0\
@@ -188,7 +191,7 @@ Now going to execute the threads:
 	Thread is releasing resources\
 	RL Request granted.\
 	Now available:    10 6 7 8\
----------------------------------------\
+--------------------------------------------\
 --> Customer/Thread 2 \
         Need:    2 5 3 3\
 	Allocated resources:    0 0 0 0\
@@ -204,7 +207,7 @@ Now going to execute the threads:
 	Thread is releasing resources\
 	RL Request granted.\
 	Now available:    10 6 7 8\
----------------------------------------\
+--------------------------------------------\
 --> Customer/Thread 3 \
         Need:    6 3 3 2\
 	Allocated resources:    0 0 0 0\
@@ -220,7 +223,7 @@ Now going to execute the threads:
 	Thread is releasing resources\
 	RL Request granted.\
 	Now available:    10 6 7 8\
----------------------------------------\
+--------------------------------------------\
 --> Customer/Thread 4 \
         Need:    5 6 7 5\
 	Allocated resources:    0 0 0 0\

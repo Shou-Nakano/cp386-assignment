@@ -169,9 +169,6 @@ Current State: Safe\
 Safe Sequence Is: < 0 1 2 3 4 >\
 Now going to execute the threads:
 
-&nbsp;
-
-
 --------------------------------------------\
 --> Customer/Thread 0 \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;        Need:&nbsp; &nbsp; &nbsp;    5 3 6 1\

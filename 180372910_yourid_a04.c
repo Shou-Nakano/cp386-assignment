@@ -11,7 +11,7 @@
 typedef struct thread //represents a single thread
 {
 	int index;//id of the thread as read from file
-	int state;
+	int order;
 	pthread_t handle;
 	int retVal;
 } Thread;
@@ -37,6 +37,7 @@ int *finish = NULL;
 Thread* threads = NULL;
 sem_t semaphore;
 int ret;
+int *tempSeq = NULL;
 
 int rows; // Number of rows in the matrix.
 int columns; // Number of columns in the matrix.
@@ -45,6 +46,9 @@ int columns; // Number of columns in the matrix.
 // The vectors/matrices will be defined here as global variables.
 
 int main(int argc, char **argv) {
+	
+	threads = (Thread*) malloc(sizeof(Thread)*rows);
+	
 	char *prelude = (char*)malloc(100); // This will be used to get rid of the tokens in the fgets string.
 	char *command = (char*)malloc(100);
 	if(argc<2)
@@ -72,7 +76,7 @@ int main(int argc, char **argv) {
 		}
 		else if (strncmp(command, "Run", 3) == 0){
 			done = 1;
-			Run();
+			Run(&threads);
 		}
 		else{
 			printf("Invalid input; please input a valid command. \n");
@@ -86,6 +90,7 @@ int main(int argc, char **argv) {
 	free(allocation);
 	free(need);
 	free(safeSeq);
+	free(tempSeq);
 	return 0;
 }
 
@@ -191,20 +196,39 @@ void RQ(char* command){
 	int number; // What is the token as a number?
 	int valid = 0; // Is this request valid? 0 if it is, -1 if it isn't. This will be checked by making sure that we don't exceed the maximum requestable resources for a thread.
 	int safe = 0; // Is this request safe? 0 if it is, -1 if it isn't.
+	int error1 = 0;
+	int error2 = 0;
 	token = strtok(NULL, " ");
 	while (token != NULL){
 		number = atoi(token);
 		available[j] = available[j] - number;
 		allocation[i][j] = allocation[i][j] + number;
 		need[i][j] = need[i][j] - number;
-		if (need[i][j] < 0 || available[j] < 0){ // This means that the thread has requestable more resources than it needs or you don't have enough resources to give to the thread.
+		if (need[i][j] < 0){ // This means that the thread has requestable more resources than it needs.
 			valid = -1;
+			error1 = -1;
+		}
+		if (available[j] < 0){ // This means that you don't have enough resources to give to the thread.
+			valid = -1;
+			error2 = -1;
 		}
 		j++;
 		token = strtok(NULL, " ");
 	}
 	safe = SafetyAlgorithm();
 	if (valid == -1 || safe == -1){
+		if (valid == -1) {
+			printf("Invalid.\n");
+		}
+		if (safe == -1) {
+			printf("Unsafe state.\n");
+		}
+		if (error1 == -1) {
+			printf("Thread requested more resources than it needs.\n");
+		}
+		if (error2 != -1) {
+			printf("Resource type %i not available.\n", error2);
+		}
 		printf("RQ Request denied; reversing the process with RL. \n");
 		RL(save);
 	}
@@ -284,9 +308,12 @@ void Asterisk(){
 void* threadExec(void* t) {
 
 	// Mutex
+	sem_wait(&semaphore);
 
+	// Critical section starts here
 	char* charArray = (char*) malloc(100);
 	int* intArray = (int*) malloc(100);
+	int number;
 	for (int i = 0; i < columns; i++) {
 		int number = need[((Thread*)t)->index][i];
 		intArray[i] = number;
@@ -296,68 +323,74 @@ void* threadExec(void* t) {
 	charArray[0] = 'R';
 	charArray[1] = 'Q';
 	charArray[2] = ' ';
-
-	/*
-	for (int i = 0; i < 3; i++) {
-		printf("%i ", charArray[i]);
-	}
-	*/
-
+	charArray[3] = ((Thread*)t)->index + '0';
+	charArray[4] = ' ';
 
 	int j = 0;
-	for (int i = 3; i < rows; i = i + 2) {
+	for (int i = 5; i < 12; i = i + 2) {
 		charArray[i] = intArray[j] + '0';
 		charArray[i + 1] = ' ';
 		j++;
 	}
 
-	puts(charArray);
-	printf("\n");
+	printf("        Thread %i has started\n", ((Thread*)t)->index);
 
-	size_t len = strlen(charArray);
+	// Request needed number of resources
+	printf("        Request all needed resources\n");
+	printf("        ");
+	RQ(charArray);
 
-	for (int i = 0; i < len; i++) {
-		printf("%i", charArray[i]);
+	printf("        New need array:   ");
+	for (int j = 0; j < columns; j++) {
+		printf(" %i", need[((Thread*)t)->index][j]);
 	}
 	printf("\n");
+	printf("        New allocation array:   ");
+	for (int j = 0; j < columns; j++) {
+		printf(" %i", allocation[((Thread*)t)->index][j]);
+	}
+	printf("\n");
+	printf("        New available array:   ");
+	for (int j = 0; j < columns; j++) {
+		printf(" %i", available[j]);
+	}
+	printf("\n");
+
+	printf("        State still safe: ");
+	int safe = SafetyAlgorithm();
+	if (safe == 0) {
+		printf(" Yes\n");
+	}
+	else {
+		printf(" No\n");
+	}
+
+	printf("        Thread %i has finished\n", ((Thread*)t)->index);
 
 	char* charArrayRL = (char*) malloc(100);
 	int* intArray2 = (int*) malloc(100);
 	for (int i = 0; i < columns; i++) {
-		int number = allocation[((Thread*)t)->index][i];
+		number = allocation[((Thread*)t)->index][i];
 		intArray2[i] = number;
 	}
-
 
 	charArrayRL[0] = 'R';
 	charArrayRL[1] = 'L';
 	charArrayRL[2] = ' ';
+	charArrayRL[3] = ((Thread*)t)->index + '0';
+	charArrayRL[4] = ' ';
 
 	j = 0;
-	for (int i = 3; i < rows; i = i + 2) {
+
+	for (int i = 5; i < 12; i = i + 2) {
 		charArrayRL[i] = intArray2[j] + '0';
 		charArrayRL[i + 1] = ' ';
 		j++;
 	}
 
-	puts(charArrayRL);
-	printf("\n");
-
-	sem_wait(&semaphore);
-
-	// Critical section starts here
-
-	//printf("%i\n", ((Thread*)t)->index);
-	printf("        Thread %i has started\n", ((Thread*)t)->index);
-
-	// Request needed number of resources
-
-	RQ(charArray);
-
-	printf("        Thread %i has finished\n", ((Thread*)t)->index);
-
 	// Release allocated resources
 	printf("        Thread is releasing resources\n");
+	printf("        ");
 
 	RL(charArrayRL);
 
@@ -370,7 +403,8 @@ void* threadExec(void* t) {
 	// Critical section ends here
 
 	sem_post(&semaphore);
-	return 0;
+
+	pthread_exit(0);
 
 }
 
@@ -378,10 +412,15 @@ void Run(Thread** threads){ // This function should use safetyAlgorithm to check
 
 	ret = sem_init(&semaphore, 0, 1);
 
-	*threads = (Thread*) malloc(sizeof(Thread)*rows);
-
 	int safe = SafetyAlgorithm();
-	printf("safe: %i\n", safe);
+	printf("\n");
+	printf("Current State:");
+	if (safe == -1) {
+		printf(" Not safe\n");
+	}
+	else if (safe == 0) {
+		printf(" Safe\n");
+	}
 	if (safe == -1){
 		printf("Currently not in safe state; please enter a different set of resources.\n");
 	}
@@ -390,24 +429,27 @@ void Run(Thread** threads){ // This function should use safetyAlgorithm to check
 		for (int i = 0; i < rows; i++) {
 			printf("%i ", safeSeq[i]);
 			(*threads)[i].index = safeSeq[i];
+			(*threads)[i].order = i;
 		}
 		printf(">\n");
 
+		tempSeq = (int *)malloc(rows * sizeof(int));
+		tempSeq = safeSeq;
+		
 		printf("Now going to execute the threads:\n");
-		printf("\n");
 		printf("\n");
 
 		for (int i = 0; i < rows; i++) {
-			printf("--> Customer/Thread %i\n", safeSeq[i]);
-			printf("        Allocated resources:   ");
+			printf("----------------------------------------\n");
+			printf("--> Customer/Thread %i\n", tempSeq[i]);
+			printf("        Need:   ");
 			for (int j = 0; j < columns; j++) {
-				printf(" %i", allocation[i][j]);
+				printf(" %i", need[tempSeq[i]][j]);
 			}
 			printf("\n");
-			printf("        Need:   ");
-			//int space = 0;
+			printf("        Allocated resources:   ");
 			for (int j = 0; j < columns; j++) {
-				printf(" %i", need[i][j]);
+				printf(" %i", allocation[tempSeq[i]][j]);
 			}
 			printf("\n");
 			printf("        Available:   ");
@@ -419,7 +461,7 @@ void Run(Thread** threads){ // This function should use safetyAlgorithm to check
 
 			(*threads)[i].retVal = pthread_create(&((*threads)[i].handle),NULL,threadExec,&((*threads)[i]));
 			// execute thread
-			sleep(3);
+			sleep(1);
 		}
 
 		sem_destroy(&semaphore);
@@ -516,18 +558,22 @@ int SafetyAlgorithm(){ // This function should contain the safety algorithm that
 
 	// After exiting the while loop, the goto statement will take us here
 	endLoop:
+		/*
 		printf("\n");
 		for (int i = 0; i < rows; i++) {
 				printf("%i, ", safeSeq[i]);
 		}
+		*/
 		// The system is unsafe, and we can return the safe variable to the calling function
 		return safe;
 
 	// Print the safe sequence and return the safe variable to the calling function
+	/*
 	printf("\n");
 	for (int i = 0; i < rows; i++) {
 		printf("%i, ", safeSeq[i]);
 	}
+	*/
 
 	return safe;
 }

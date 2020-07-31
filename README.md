@@ -1,3 +1,5 @@
+The Github Repository can be found at: 
+
 **Project Title:**
 
 CP386 Assignment 4: Bankers' Algorithm
@@ -18,7 +20,7 @@ Copy the sample text (or your own text) into a nano file named sample4_in.txt
 
 Save the code and type make (providing that the Makefile.mk file has been set up).
 
-Type ./Assignment_4 sample4_in.txt to start the program.
+Type ./Assignment_4 [your processes here] to start the program.
 
 **Screenshots:**
 

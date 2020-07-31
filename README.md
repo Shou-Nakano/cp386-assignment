@@ -1,4 +1,4 @@
-The Github Repository can be found at: 
+The Github Repository can be found at: https://github.com/Shou-Nakano/cp386-assignment
 
 **Project Title:**
 

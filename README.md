@@ -109,8 +109,9 @@ RQ Request granted.
 Input your command: RQ 1 1 1 1 10
 
 Invalid.\
-Thread requested more resources than it needs.\
-Resource type 3 not available.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thread requested more resources than it needs.\
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not enough resources available.\
+Unsafe state.\
 RQ Request denied; reversing the process with RL.\
 RL Request granted.
 

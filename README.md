@@ -24,7 +24,7 @@ Type ./Assignment_4 sample4_in.txt to start the program.
 
 TEST #1:
 
-![image](https://user-images.githubusercontent.com/33897109/88879861-587efa80-d1f9-11ea-9c10-1da16b885a74.png)
+![image](https://user-images.githubusercontent.com/33897109/89019333-21891180-d2eb-11ea-8443-1ece69fbd46e.png)
 
 ![image](https://user-images.githubusercontent.com/33897109/88879975-95e38800-d1f9-11ea-8975-3b1c09304a1d.png)
 

@@ -38,7 +38,7 @@ int *work = NULL; // 1D vector for SafetyAlgorithm(); stores current available r
 int *finish = NULL; // 1D vector for SafetyAlgorithm(); stores which processes have finished execution
 Thread* threads = NULL; // Thread object to store all threads
 sem_t semaphore; // Declare a semaphore
-int ret // Return value for semaphore
+int ret; // Return value for semaphore
 int *tempSeq = NULL; // 1D vector to store temporary safe sequence for run()
 
 int rows; // Number of rows in the matrix (# of threads/processes).

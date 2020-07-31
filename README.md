@@ -108,7 +108,7 @@ RQ Request granted.
 
 Input your command: RQ 1 1 1 1 10
 
-Invalid.\
+Invalid:\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Thread requested more resources than it needs.\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Not enough resources available.\
 Unsafe state.\

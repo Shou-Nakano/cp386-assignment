@@ -1,3 +1,7 @@
+// Shou Nakano's Login ID: Shou-Nakano
+// Danni Shang's Login ID: dannirs
+// Public GitHub repository link: https://github.com/Shou-Nakano/cp386-assignment
+
 #include <unistd.h>
 #include <stdio.h>
 #include <stdlib.h>

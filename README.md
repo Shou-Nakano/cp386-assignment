@@ -1,5 +1,3 @@
-The Github Repository can be found at: https://github.com/Shou-Nakano/cp386-assignment
-
 **Project Title:**
 
 CP386 Assignment 4: Bankers' Algorithm

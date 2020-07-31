@@ -202,7 +202,7 @@ void RQ(char* command){
 	int safe = 0; // Is this request safe? 0 if it is, -1 if it isn't.
 	// Gives more information on why input is invalid
 	int error1 = 0;
-	int error2 = 0;
+	int error2 = -1;
 	token = strtok(NULL, " ");
 	while (token != NULL){
 		number = atoi(token);
@@ -215,7 +215,7 @@ void RQ(char* command){
 		}
 		if (available[j] < 0){ // This means that you don't have enough resources to give to the thread.
 			valid = -1;
-			error2 = -1;
+			error2 = j;
 		}
 		j++;
 		token = strtok(NULL, " ");
@@ -225,14 +225,14 @@ void RQ(char* command){
 		if (valid == -1) {
 			printf("Invalid.\n");
 		}
-		if (safe == -1) {
-			printf("Unsafe state.\n");
-		}
 		if (error1 == -1) {
-			printf("Thread requested more resources than it needs.\n");
+			printf("         Thread requested more resources than it needs.\n");
 		}
 		if (error2 != -1) {
-			printf("Resource type %i not available.\n", error2);
+			printf("         Not enough resources available.\n");
+		}
+		if (safe == -1) {
+			printf("Unsafe state.\n");
 		}
 		printf("RQ Request denied; reversing the process with RL. \n");
 		// If request denied, release allocated resources to reverse process and return to previous state
@@ -521,17 +521,20 @@ int SafetyAlgorithm(){ // This function should contain the safety algorithm that
 		finish[i] = FALSE;
 	}
 
-	int count = 0;
 	// Safe variable will be returned by the function to determine if a resource request will leave the system in a safe state
 	// 0 = safe, -1 = not safe
 	int safe = 0;
+	// Start at index 0 of the safety sequence; increment to add next element to the safety sequence array
 	int sequenceNum = 0;
+	// Keeps track of whether all resources meet the safe state conditions for a given process (need <= work)
 	int columnCount = 0;
+	// Is 1 if a process is found that meets safe state conditions (need <= work and finish[i] = false); 0 if no process found
+	int found = 1;
 
-	// Keep looping while not all processes have been added to the safety sequence (i.e. not all processes have finished execution)
-	while (sequenceNum != rows) {
-		// Increment the count variable to keep track of how many times the while loop has run
-		count++;
+	// Keep looping while there exists a process that meets conditions for maintaining safe state (need <= work and finish[i] = false)
+	while (found == 1 && safe == 0) {
+		// Set found to 0 to indicate that no process has been found yet that meets safe state conditions
+		found = 0;
 		// Loop through each process
 		for (int i = 0; i < rows; i++) {
 			// Check if the 2 conditions are met (finish[i] = false and need <= work)
@@ -539,6 +542,11 @@ int SafetyAlgorithm(){ // This function should contain the safety algorithm that
 				columnCount = 0;
 				// Loop through all elements of the work array
 				for (int j = 0; j < columns; j++) {
+					// Values can't be negative
+					if (need[i][j] < 0 || work[j] < 0) {
+						safe = -1;
+						break;
+					}
 					// Check to see if the resources that a process still needs are less than the available
 					// number of resources found in the work array
 					if (need[i][j] <= work[j]) {
@@ -562,49 +570,29 @@ int SafetyAlgorithm(){ // This function should contain the safety algorithm that
 					for (int k = 0; k < columns; k++) {
 						work[k] = work[k] + allocation[i][k];
 					}
-				}
-			}
-		}
-
-		// After looping through all processes once, we can start checking to see if there are any more processes that can be run (that meets both conditions).
-		// If not, then we can stop looping
-		if (count == rows) {
-			// Loop through each process to see if there still exists a process which hasn't been run
-			// and which doesn't need resources that exceed the amount of resources available (meets both conditions)
-			for (int i = 0; i < rows; i++) {
-				if (finish[i] == FALSE) {
-					for (int j = 0; j < columns; j++) {
-						// If the amount of resources needed is greater than the amount of resources available, then the condition is not fulfilled
-						if (need[i][j] > work[j]) {
-							// Therefore, the system is unsafe and we can exit the while loop using a goto statement
-							safe = -1;
-							goto endLoop;
-						}
-					}
+					// Set to 1 to show that a process that meets conditions has been found
+					found = 1;
 				}
 			}
 		}
 
 	}
 
-	// After exiting the while loop, the goto statement will take us here
-	endLoop:
-		/*
-		printf("\n");
-		for (int i = 0; i < rows; i++) {
-				printf("%i, ", safeSeq[i]);
-		}
-		*/
-		// The system is unsafe, and we can return the safe variable to the calling function
-		return safe;
-
-	// Print the safe sequence and return the safe variable to the calling function
-	/*
-	printf("\n");
+	// Print out the safety sequence
+	// printf("Safety Sequence: ");
+	
 	for (int i = 0; i < rows; i++) {
-		printf("%i, ", safeSeq[i]);
+
+		//printf("%i ", safeSeq[i]);
+
+		// If all processes could finish execution (all processes are in safe sequence), then the system is in safe state
+		// if finish[i] = false, then there exists a process that couldn't finish execution while maintaining safe state
+		// Set safe = -1
+		if (finish[i] == FALSE) {
+			safe = -1;
+		}
 	}
-	*/
+	//printf("\n");
 
 	return safe;
 }

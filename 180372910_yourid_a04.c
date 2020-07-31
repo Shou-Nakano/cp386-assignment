@@ -4,7 +4,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <pthread.h>
-#include <semaphore.h>
+
 // Define the values of booleans false and true
 #define FALSE 0
 #define TRUE 1
@@ -37,9 +37,8 @@ int *safeSeq = NULL; // 1D vector to store safe sequence
 int *work = NULL; // 1D vector for SafetyAlgorithm(); stores current available resource instances
 int *finish = NULL; // 1D vector for SafetyAlgorithm(); stores which processes have finished execution
 Thread* threads = NULL; // Thread object to store all threads
-sem_t semaphore; // Declare a semaphore
-int ret; // Return value for semaphore
 int *tempSeq = NULL; // 1D vector to store temporary safe sequence for run()
+pthread_mutex_t mutex; // Declare a mutex
 
 int rows; // Number of rows in the matrix (# of threads/processes).
 int columns; // Number of columns in the matrix (# of instances per resource).
@@ -313,12 +312,12 @@ void Asterisk(){
 
 void* threadExec(void* t) { // Function invoked by a new thread created by pthread_create()
 
-	// Decrement (lock) the semaphore
-	// If the semaphore's value is greater than 0, then the decrement proceeds and function returns
-	// Else the call blocks until it's possible to perform the decrement
-	sem_wait(&semaphore);
+	// Lock the mutex for the following critical section
+	// If mutex not available, the thread will sleep until it becomes available
+	pthread_mutex_lock(&mutex);
 
 	// Critical section starts here
+	
 	// Create arrays to store matrix values
 	char* charArray = (char*) malloc(SIZE);
 	int* intArray = (int*) malloc(SIZE);
@@ -419,8 +418,8 @@ void* threadExec(void* t) { // Function invoked by a new thread created by pthre
 
 	// Critical section ends here
 
-	// Increment (unlock) the semaphore so that the next thread can access it
-	sem_post(&semaphore);
+	// Unlock the mutex so that the next thread can access it
+	pthread_mutex_unlock(&mutex);
 
 	// Upon completion, terminate the thread
 	pthread_exit(0);
@@ -430,8 +429,11 @@ void* threadExec(void* t) { // Function invoked by a new thread created by pthre
 
 void Run(Thread** threads){ // This function should use safetyAlgorithm to check to see if there is a safe series of threads and if so, 'run' them as seen in the sample output.
 
-	// Initiate the semaphore (semaphore is shared between process threads and has an initial value of 1)
-	ret = sem_init(&semaphore, 0, 1);
+	// Initialize the mutex and check if initialization successful
+    	if (pthread_mutex_init(&mutex, NULL) != 0) {
+        	printf("Mutex initialization failed.\n");
+        	return;
+    	}
 
 	// Call the safety algorithm to see whether system is in safe state
 	int safe = SafetyAlgorithm();
@@ -491,11 +493,14 @@ void Run(Thread** threads){ // This function should use safetyAlgorithm to check
 			// Pass the thread as a argument to threadExec()
 			(*threads)[i].retVal = pthread_create(&((*threads)[i].handle),NULL,threadExec,&((*threads)[i]));
 			// execute thread
-			sleep(1);
+
+			// Wait for thread to terminate
+			pthread_join((*threads)[i].handle, NULL);
+			
 		}
 
-		// After all threads have executed, destroy the semaphore
-		sem_destroy(&semaphore);
+		// After all threads have executed, destroy the mutex
+		pthread_mutex_destroy(&mutex);
 	}
 }
 
